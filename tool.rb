@@ -37,7 +37,7 @@ ARGV.each do |summoner_name|
     puts "#{difference} days since last ranked game"
     days_till_decay = difference - 28
 
-    if difference > 70
+    if difference > 28
       puts "You are in decay"
     else
       puts "You have #{days_till_decay} days left till decay"
