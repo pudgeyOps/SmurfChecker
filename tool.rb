@@ -3,6 +3,14 @@ require 'open-uri'
 require 'json'
 require "date"
 
+def callapi(uri)
+    open(uri)
+  rescue => exception
+    puts "username cannot be found on EUW"
+    exit 1 
+end
+
+
 if ARGV.empty?
   puts 'No variables given, please provide a list of summoner names to do the lookup! eg. "ruby tool.rb username1 username2 username3"'
   exit
@@ -11,8 +19,8 @@ api_key = 'RGAPI-070a85ab-5cca-41dc-997e-40b050d32747'
 
 ARGV.each do |summoner_name|
     puts "Looking up: #{summoner_name}"
-    #Get the page and print it
-    api_call = open("https://euw1.api.riotgames.com/lol/summoner/v3/summoners/by-name/#{summoner_name}/?api_key=#{api_key}")
+
+    api_call = callapi("https://euw1.api.riotgames.com/lol/summoner/v3/summoners/by-name/#{summoner_name}/?api_key=#{api_key}")
     api_page = api_call.read
     api_page_json = JSON.parse(api_page)
     account_id = api_page_json['accountId']
